@@ -33,12 +33,15 @@ app.use("/api/v1/agence", authMiddleware, agenceRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const uri =
-  "mongodb+srv://Stael:The_glory@cluster0.nzcoapt.mongodb.net/MadeAEat?retryWrites=true&w=majority";
+// const uri =
+//   "mongodb+srv://Stael:The_glory@cluster0.nzcoapt.mongodb.net/MadeAEat?retryWrites=true&w=majority";
+
+const uri = process.env.MONGODB_URI + "=true";
+console.log(uri);
 
 const startServer = async () => {
   try {
-    await connectDB(uri);
+    uri && (await connectDB(uri));
     app.listen(port, () => {
       console.log("Server is listening on port", port);
     });
