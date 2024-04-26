@@ -1,3 +1,4 @@
+// Import the necessary modules.
 require("express-async-errors");
 import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
@@ -10,37 +11,51 @@ import clientRouter from "./routes/client";
 dotenv.config();
 import path from "path";
 import agenceRouter from "./routes/panelAgence";
+
+// Set the port number.
 const port = process.env.PORT || 8000;
+
+// Create an Express application.
 const app: Application = express();
+
+// Parse JSON requests.
 app.use(express.json());
 
-// routes
+// Define the root route.
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to MadeAEat API");
 });
 
+// Serve static files from the uploads directory.
 app.use("/uploads", express.static(path.join(__dirname, "../", "uploads")));
-// Restaurant
+
+// Define the routes for the restaurant module.
 app.use("/api/v1/auth/restaurant", restaurantRouter);
 app.use("/api/v1/restaurant", authMiddleware, restaurantRouter);
-// Clients
+
+// Define the routes for the client module.
 app.use("/api/v1/auth/client", clientRouter);
 app.use("/api/v1/client", authMiddleware, clientRouter);
-// Agence
+
+// Define the routes for the agence module.
 app.use("/api/v1/auth/agence", agenceRouter);
 app.use("/api/v1/agence", authMiddleware, agenceRouter);
 
+// Define the not found middleware.
 app.use(notFoundMiddleware);
+
+// Define the error handler middleware.
 app.use(errorHandlerMiddleware);
 
-const uri = process.env.MONGO_URI;
+// Get the MongoDB URI from the environment variables.
+const uri = process.env.MONGODB_URI;
 
-
-
-
+// Start the server.
 const startServer = async () => {
   try {
-    uri && (await connectDB(uri));
+    // Connect to the MongoDB database.
+    await connectDB(uri!);
+    // Listen on the specified port.
     app.listen(port, () => {
       console.log("Server is listening on port", port);
     });
@@ -49,4 +64,5 @@ const startServer = async () => {
   }
 };
 
+// Start the server.
 startServer();
