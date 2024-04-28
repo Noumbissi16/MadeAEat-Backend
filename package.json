@@ -2,11 +2,10 @@
   "name": "MadeAEat-API",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/app.ts",
-    "dev": "nodemon src/app.ts"
+    "start": "nodemon index.ts"
   },
   "keywords": [],
   "author": "",

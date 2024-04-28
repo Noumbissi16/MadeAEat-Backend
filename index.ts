@@ -1,16 +1,17 @@
 // Import the necessary modules.
 require("express-async-errors");
 import express, { Application, Request, Response } from "express";
-import dotenv from "dotenv";
-import restaurantRouter from "./routes/restaurant";
-import notFoundMiddleware from "./middlewares/not-found";
-import errorHandlerMiddleware from "./middlewares/error-handler";
-import connectDB from "./db/connectDB";
-import authMiddleware from "./middlewares/authMiddleware";
-import clientRouter from "./routes/client";
-dotenv.config();
+// import dotenv from "dotenv";
+require("dotenv").config();
+import restaurantRouter from "./src/routes/restaurant";
+import notFoundMiddleware from "./src/middlewares/not-found";
+import errorHandlerMiddleware from "./src/middlewares/error-handler";
+import connectDB from "./src/db/connectDB";
+import authMiddleware from "./src/middlewares/authMiddleware";
+import clientRouter from "./src/routes/client";
+// dotenv.config();
 import path from "path";
-import agenceRouter from "./routes/panelAgence";
+import agenceRouter from "./src/routes/panelAgence";
 
 // Set the port number.
 const port = process.env.PORT || 8000;
