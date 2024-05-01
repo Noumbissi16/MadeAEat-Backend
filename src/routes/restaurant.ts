@@ -18,7 +18,7 @@ import {
   updateRestaurantAdminInfos,
   updateRestaurantInfos,
 } from "../controllers/restaurant";
-import upload from "../middlewares/upload";
+import { upload } from "../middlewares/upload";
 
 const restaurantRouter = express.Router();
 

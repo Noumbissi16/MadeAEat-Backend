@@ -28,7 +28,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // Serve static files from the uploads directory.
-app.use("/uploads", express.static(path.join(__dirname, "../", "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "/", "uploads")));
 
 // Define the routes for the restaurant module.
 app.use("/api/v1/auth/restaurant", restaurantRouter);

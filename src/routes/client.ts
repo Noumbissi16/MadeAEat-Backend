@@ -11,7 +11,7 @@ import {
   signup,
   updateUserProfile,
 } from "../controllers/client";
-import upload from "../middlewares/upload";
+import { upload } from "../middlewares/upload";
 
 const clientRouter = express.Router();
 
