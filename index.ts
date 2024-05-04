@@ -12,6 +12,14 @@ import clientRouter from "./src/routes/client";
 // dotenv.config();
 import path from "path";
 import agenceRouter from "./src/routes/panelAgence";
+// security
+import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+// Swagger
+import swaggerUI from "swagger-ui-express";
+import YAML from "yamljs";
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 // Set the port number.
 const port = process.env.PORT || 8000;
@@ -22,11 +30,26 @@ const app: Application = express();
 // Parse JSON requests.
 app.use(express.json());
 
+// security
+app.use(cors());
+app.use(helmet());
+// use ratelimit
+app.set("trust proxy", 1 /* number of proxies between user and server */);
+
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  })
+);
 // Define the root route.
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to MadeAEat API");
 });
-
+// Serve Documentation
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 // Serve static files from the uploads directory.
 app.use("/uploads", express.static(path.join(__dirname, "/", "uploads")));
 

@@ -1,0 +1,796 @@
+openapi: 3.0.0
+info:
+  title: MadeAEat-Api
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://api-madeaeat.vercel.app/api/v1
+    variables: {}
+paths:
+  /auth/restaurant/signup:
+    post:
+      tags:
+        - Auth Restaurant
+      summary: Create admin
+      operationId: Createadmin
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateadminRequest"
+                - example:
+                    email: staelnoumbissi2@example.com
+                    name: "Ervane "
+                    password: TestPassword123
+                    phoneNumber: "690277499"
+            example:
+              email: staelnoumbissi2@example.com
+              name: "Ervane "
+              password: TestPassword123
+              phoneNumber: "690277499"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /auth/restaurant/signin:
+    post:
+      tags:
+        - Auth Restaurant
+      summary: Signin to restaurant
+      operationId: Signintorestaurant
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/SignintorestaurantRequest"
+                - example:
+                    email: staelnoumbissi2@example.com
+                    nameRestaurant: "Chez Ervane "
+                    password: TestPassword123
+            example:
+              email: staelnoumbissi2@example.com
+              nameRestaurant: "Chez Ervane "
+              password: TestPassword123
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /restaurant/create-restaurant:
+    post:
+      tags:
+        - Auth Restaurant
+      summary: Create new restaurant
+      description: >-
+        This is a GET request and it is used to "get" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).
+
+
+        A successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.
+      operationId: Createnewrestaurant
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreatenewrestaurantRequest"
+                - example:
+                    name: " Chez Ervane"
+                    ville: Douala
+                    location: " Ndokoti"
+            example:
+              name: " Chez Ervane"
+              ville: Douala
+              location: " Ndokoti"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /auth/client/signup:
+    post:
+      tags:
+        - Auth Users
+      summary: Sign Up Users
+      operationId: SignUpUsers
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+                - name
+                - email
+                - password
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Noumbissi Ervane
+                email:
+                  type: string
+                  example: staelnoumbissi4@gmail.com
+                password:
+                  type: integer
+                  format: int32
+                  example: 1234567890
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth/client/signin:
+    post:
+      tags:
+        - Auth Users
+      summary: Sign In Users
+      operationId: SignInUsers
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/SignInUsersRequest"
+                - example:
+                    email: staelnoumbissi6@gmail.com
+                    password: "12345678901"
+            example:
+              email: staelnoumbissi6@gmail.com
+              password: "12345678901"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth/agence/signup-agence:
+    post:
+      tags:
+        - Auth Agence
+      summary: SignUp
+      operationId: SignUp
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /restaurant/menu:
+    post:
+      tags:
+        - Menu
+      summary: Create a menu
+      description: >-
+        This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.
+
+
+        A successful POST request typically returns a `200 OK` or `201 Created` response code.
+      operationId: Createamenu
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateamenuRequest"
+                - example:
+                    name: Bla bla bla menu
+                    price: 1000
+                    description: "Made with the beast rice of Banjock "
+            example:
+              name: Bla bla bla menu
+              price: 1000
+              description: "Made with the beast rice of Banjock "
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/menus:
+    get:
+      tags:
+        - Menu
+      summary: Get all menus
+      description: >-
+        This is a GET request and it is used to "get" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).
+
+
+        A successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.
+      operationId: Getallmenus
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/menu/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The ID of the menu
+    patch:
+      tags:
+        - Menu
+      summary: Update a menu
+      description: >-
+        This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).
+
+
+        A successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code.
+      operationId: Updateamenu
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateamenuRequest"
+                - example:
+                    price: 1200
+            example:
+              price: 1200
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Menu
+      summary: Get Menu of restaurant
+      operationId: GetMenuofrestaurant
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Menu
+      summary: Delete a menu
+      description: >-
+        This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).
+
+
+        A successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code.
+      operationId: Deleteamenu
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/annonces:
+    get:
+      tags:
+        - Annonce
+      summary: Get all announcement
+      description: >-
+        This is a GET request and it is used to "get" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).
+
+
+        A successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.
+      operationId: Getallannouncement
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/annonce:
+    post:
+      tags:
+        - Annonce
+      summary: Create an announcement
+      description: >-
+        This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.
+
+
+        A successful POST request typically returns a `200 OK` or `201 Created` response code.
+      operationId: Createanannouncement
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateanannouncementRequest"
+                - example:
+                    title: " come many "
+                    description: "So, the menus variable will hold an array of documents corresponding to the "
+            example:
+              title: " come many "
+              description: "So, the menus variable will hold an array of documents corresponding to the "
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/annonce/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The annonce ID
+    patch:
+      tags:
+        - Annonce
+      summary: Update an announcement
+      description: >-
+        This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).
+
+
+        A successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code.
+      operationId: Updateanannouncement
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateanannouncementRequest"
+                - example:
+                    title: " come many "
+                    description: So, the menus variable will hold an array of documents
+            example:
+              title: " come many "
+              description: So, the menus variable will hold an array of documents
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - Annonce
+      summary: Delete an announcement
+      description: >-
+        This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).
+
+
+        A successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code.
+      operationId: Deleteanannouncement
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - Annonce
+      summary: Get single Annonce
+      operationId: GetsingleAnnonce
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /restaurant/profile-restaurant:
+    get:
+      tags:
+        - Restaurant Profile
+      summary: Get Profile
+      operationId: GetProfile
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Restaurant Profile
+      summary: Update Profile
+      operationId: UpdateProfile
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+
+  /client/profile:
+    get:
+      tags:
+        - Profile
+      summary: Get Profile info
+      operationId: GetProfileinfo
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - Profile
+      summary: Update Profile info
+      operationId: UpdateProfileinfo
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+                - profileImage
+              type: object
+              properties:
+                profileImage:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /client/restaurant:
+    get:
+      tags:
+        - Restaurant
+      summary: Get all restaurant profile
+      operationId: Getallrestaurantprofile
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /client/restaurant/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The restaurant ID
+    get:
+      tags:
+        - Restaurant
+      summary: Get restaurant by Id
+      operationId: GetrestaurantbyId
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /client/restaurant/{id-restaurant}/{id-menu}:
+    parameters:
+      - in: path
+        name: id-restaurant
+        schema:
+          type: string
+        required: true
+        description: The restaurant ID
+      - in: path
+        name: id-menu
+        schema:
+          type: string
+        required: true
+        description: The menu ID
+
+    get:
+      tags:
+        - Restaurant
+      summary: Get single restaurant menu
+      operationId: Getsinglerestaurantmenu
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /client/announcements:
+    get:
+      tags:
+        - Restaurant
+      summary: Get All announcements
+      operationId: GetAllannouncements
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /client/commande:
+    post:
+      tags:
+        - Commande
+      summary: Make commande
+      operationId: Makecommande
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/MakecommandeRequest"
+                - example:
+                    menuID: 65c89d0e376cb536af0984a1
+                    quantity: 2
+                    address: 123 Main Street
+                    paymentPhoneNumber: 123-456-7890
+            example:
+              menuID: 65c89d0e376cb536af0984a1
+              quantity: 2
+              address: 123 Main Street
+              paymentPhoneNumber: 123-456-7890
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /client/commandes:
+    get:
+      tags:
+        - Commande
+      summary: Get all commandes
+      operationId: Getallcommandes
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /client/restaurant/65c895c0ae54073aaf424fc6/abc:
+    get:
+      tags:
+        - Users
+      summary: New request
+      operationId: GetNewrequest3
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    CreateadminRequest:
+      title: CreateadminRequest
+      required:
+        - email
+        - name
+        - password
+        - phoneNumber
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        phoneNumber:
+          type: string
+      example:
+        email: staelnoumbissi2@example.com
+        name: "Ervane "
+        password: TestPassword123
+        phoneNumber: "690277499"
+    SignintorestaurantRequest:
+      title: SignintorestaurantRequest
+      required:
+        - email
+        - nameRestaurant
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        nameRestaurant:
+          type: string
+        password:
+          type: string
+      example:
+        email: staelnoumbissi2@example.com
+        nameRestaurant: "Chez Ervane "
+        password: TestPassword123
+    CreatenewrestaurantRequest:
+      title: CreatenewrestaurantRequest
+      required:
+        - name
+        - ville
+        - location
+      type: object
+      properties:
+        name:
+          type: string
+        ville:
+          type: string
+        location:
+          type: string
+      example:
+        name: " Chez Ervane"
+        ville: Douala
+        location: " Ndokoti"
+    CreateamenuRequest:
+      title: CreateamenuRequest
+      required:
+        - name
+        - price
+        - description
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        description:
+          type: string
+      example:
+        name: Bla bla bla menu
+        price: 1000
+        description: "Made with the beast rice of Banjock "
+    UpdateamenuRequest:
+      title: UpdateamenuRequest
+      required:
+        - price
+      type: object
+      properties:
+        price:
+          type: integer
+          format: int32
+      example:
+        price: 1200
+    CreateanannouncementRequest:
+      title: CreateanannouncementRequest
+      required:
+        - title
+        - description
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+      example:
+        title: " come many "
+        description: "So, the menus variable will hold an array of documents corresponding to the "
+    UpdateanannouncementRequest:
+      title: UpdateanannouncementRequest
+      required:
+        - title
+        - description
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+      example:
+        title: " come many "
+        description: So, the menus variable will hold an array of documents
+    SignInUsersRequest:
+      title: SignInUsersRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: staelnoumbissi6@gmail.com
+        password: "12345678901"
+    MakecommandeRequest:
+      title: MakecommandeRequest
+      required:
+        - menuID
+        - quantity
+        - address
+        - paymentPhoneNumber
+      type: object
+      properties:
+        menuID:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        address:
+          type: string
+        paymentPhoneNumber:
+          type: string
+      example:
+        menuID: 65c89d0e376cb536af0984a1
+        quantity: 2
+        address: 123 Main Street
+        paymentPhoneNumber: 123-456-7890
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Menu
+  - name: Annonce
+  - name: Restaurant Profile
+  - name: Profile
+  - name: Restaurant
+  - name: Commande
+  - name: Users
