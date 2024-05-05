@@ -19,7 +19,8 @@ import rateLimit from "express-rate-limit";
 // Swagger
 import swaggerUI from "swagger-ui-express";
 import YAML from "yamljs";
-const swaggerDocument = YAML.load("./swagger.yaml");
+// const swaggerDocument = YAML.load("./swagger.yaml");
+const swaggerDocument = require("./swagger.json");
 
 // Set the port number.
 const port = process.env.PORT || 8000;
@@ -27,12 +28,13 @@ const port = process.env.PORT || 8000;
 // Create an Express application.
 const app: Application = express();
 
-// Parse JSON requests.
-app.use(express.json());
-
 // security
 app.use(cors());
 app.use(helmet());
+
+// Parse JSON requests.
+app.use(express.json());
+
 // use ratelimit
 app.set("trust proxy", 1 /* number of proxies between user and server */);
 
@@ -49,7 +51,18 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to MadeAEat API");
 });
 // Serve Documentation
-app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.use(
+  "/api-docs",
+  swaggerUI.serve,
+  swaggerUI.setup(swaggerDocument, {
+    customCss:
+      ".swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }",
+
+    customCssUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.3.0/swagger-ui.min.css",
+    // "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.0.0/swagger-ui.min.css",
+  })
+);
 // Serve static files from the uploads directory.
 app.use("/uploads", express.static(path.join(__dirname, "/", "uploads")));
 
