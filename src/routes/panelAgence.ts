@@ -23,7 +23,7 @@ agenceRouter.get(
 );
 
 // Users routes
-agenceRouter.get("users", getAllUsersOfAgence);
+agenceRouter.get("/users", getAllUsersOfAgence);
 
 // Commande routes
 agenceRouter.get("/commandes", getAllCommandes);

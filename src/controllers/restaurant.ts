@@ -22,17 +22,17 @@ export const signup = async (req: Request, res: Response) => {
   const adminRestaurant = await AdminRestaurant.create({
     ...req.body,
   });
-  // const token = adminRestaurant.createJWT();
+  const token = adminRestaurant.createJWT();
   return res.status(StatusCodes.CREATED).json({
     msg: "Admin user created successfully",
-    // token,
+    token,
     admin: adminRestaurant,
   });
 };
 
 export const createRestaurant = async (req: Request, res: Response) => {
-  // const { userId } = (req as IReq).user;
-  const { userId } = req.body;
+  const { userId } = (req as IReq).user;
+  // const { userId } = req.body;
   if (!userId) {
     return res
       .status(StatusCodes.BAD_REQUEST)

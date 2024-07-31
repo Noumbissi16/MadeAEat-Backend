@@ -31,8 +31,8 @@ export const signInAgence = async (req: Request, res: Response) => {
 };
 
 export const getAllRestaurant = async (req: Request, res: Response) => {
-  const restaurants = Restaurant.find({}).select("profileImage name");
-  return res.status(StatusCodes.OK).json({ restaurants });
+  const restaurants = await Restaurant.find({}).select("profile ville location ownedBy name");
+  return res.status(StatusCodes.OK).json({count: restaurants.length , restaurants });
 };
 
 export const getSingleRestaurantInformationById = async (
@@ -74,6 +74,10 @@ export const getSingleRestaurantInformationById = async (
 export const getAllUsersOfAgence = async (req: Request, res: Response) => {
   const userId = (req as any).user.userId;
   const agenceLocation = await Agence.findById(userId).select("agence");
+console.log("userId", userId);
+
+  console.log("agenceLocation", agenceLocation?.agence);
+  
 
   const users = await ClientModel.find({
     town: agenceLocation?.agence,

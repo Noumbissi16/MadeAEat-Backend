@@ -27,8 +27,8 @@ const panelAgenceSchema = new mongoose.Schema<IAgence>({
   agence: {
     type: String,
     required: [true, "Please precise the agence"],
-    enum: ["Bafoussam", "Douala", "Yaounde", "Maroua"],
-    default: "Bafoussam",
+    // enum: ["Bafoussam", "Douala", "Yaounde", "Maroua"],
+    // default: "Bafoussam",
   },
   profileImage: {
     type: String,
