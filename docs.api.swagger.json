@@ -1,0 +1,1836 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MadeAEat-Api",
+    "description": "Api for the whole project",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api-madeaeat.vercel.app/api/v1",
+      "variables": {}
+    },
+    {
+      "url": "http://localhost:8000/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/auth/restaurant/signup": {
+      "post": {
+        "tags": [
+          "Auth - Restaurant"
+        ],
+        "summary": "Create admin",
+        "operationId": "Createadmin",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateadminRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "Kuitche Ervane",
+                      "email": "ervane.kuitche@gmail.com",
+                      "password": "password123",
+                      "profileImage": "https://example.com/profiles/kuitche.jpg",
+                      "phoneNumber": "9012345678"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "Kuitche Ervane",
+                "email": "ervane.kuitche@gmail.com",
+                "password": "password123",
+                "profileImage": "https://example.com/profiles/kuitche.jpg",
+                "phoneNumber": "9012345678"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/auth/restaurant/signin": {
+      "post": {
+        "tags": [
+          "Auth - Restaurant"
+        ],
+        "summary": "Signin to restaurant",
+        "operationId": "Signintorestaurant",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignintorestaurantRequest"
+                  },
+                  {
+                    "example": {
+                      "email": "ervane.kuitche@gmail.com",
+                      "nameRestaurant": "La Cantina",
+                      "password": "password123"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "email": "ervane.kuitche@gmail.com",
+                "nameRestaurant": "La Cantina",
+                "password": "password123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/restaurant/create-restaurant": {
+      "post": {
+        "tags": [
+          "Auth - Restaurant"
+        ],
+        "summary": "Create new restaurant",
+        "operationId": "Createnewrestaurant",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreatenewrestaurantRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "La Cantina",
+                      "ville": "Barcelona",
+                      "location": "Carrer de la Marina, 19",
+                      "ownedBy": "60c72b1f9b1d8c1dfc8d6bf7",
+                      "phoneNumber": "932123456",
+                      "openingHour": "12:00",
+                      "closingHour": "23:00",
+                      "openingDays": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday"
+                      ],
+                      "profile": "https://example.com/profile/la_cantina.jpg"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "La Cantina",
+                "ville": "Barcelona",
+                "location": "Carrer de la Marina, 19",
+                "ownedBy": "60c72b1f9b1d8c1dfc8d6bf7",
+                "phoneNumber": "932123456",
+                "openingHour": "12:00",
+                "closingHour": "23:00",
+                "openingDays": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "profile": "https://example.com/profile/la_cantina.jpg"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/menu": {
+      "post": {
+        "tags": [
+          "Menu - Restaurant"
+        ],
+        "summary": "Create a menu",
+        "operationId": "Createamenu",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "name",
+                  "description",
+                  "imageMenu",
+                  "price"
+                ],
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "imageMenu": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "price": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/menus": {
+      "get": {
+        "tags": [
+          "Menu - Restaurant"
+        ],
+        "summary": "Get all menus",
+        "operationId": "Getallmenus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/menu/{menuID}": {
+      "patch": {
+        "tags": [
+          "Menu - Restaurant"
+        ],
+        "summary": "Update a menu",
+        "operationId": "Updateamenu",
+        "parameters": [
+          {
+            "name": "menuID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "imageMenu",
+                  "price",
+                  "description",
+                  "name"
+                ],
+                "type": "object",
+                "properties": {
+                  "imageMenu": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "price": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Menu - Restaurant"
+        ],
+        "summary": "Delete a menu",
+        "operationId": "Deleteamenu",
+        "parameters": [
+          {
+            "name": "menuID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "66a969ba9ffcd8d650d08d01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Menu - Restaurant"
+        ],
+        "summary": "Get Menu of restaurant",
+        "operationId": "GetMenuofrestaurant",
+        "parameters": [
+          {
+            "name": "menuID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/annonces": {
+      "get": {
+        "tags": [
+          "Annonce - Restaurant"
+        ],
+        "summary": "Get all announcement",
+        "operationId": "Getallannouncement",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/annonce": {
+      "post": {
+        "tags": [
+          "Annonce - Restaurant"
+        ],
+        "summary": "Create an announcement",
+        "operationId": "Createanannouncement",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreateanannouncementRequest"
+                  },
+                  {
+                    "example": {
+                      "title": "Holiday Feast",
+                      "description": "Celebrate the holidays with a special feast at our restaurant."
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "title": "Holiday Feast",
+                "description": "Celebrate the holidays with a special feast at our restaurant."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/annonce/{annonceID}": {
+      "patch": {
+        "tags": [
+          "Annonce - Restaurant"
+        ],
+        "summary": "Update an announcement",
+        "operationId": "Updateanannouncement",
+        "parameters": [
+          {
+            "name": "annonceID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "example": "66d5d574a892694ec82de7f3"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/UpdateanannouncementRequest"
+                  },
+                  {
+                    "example": {
+                      "title": "Holiday Feast",
+                      "description": "Celebrate the holidays with a special feast at our restaurant."
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "title": "Holiday Feast",
+                "description": "Celebrate the holidays with a special feast at our restaurant."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Annonce - Restaurant"
+        ],
+        "summary": "Delete an announcement",
+        "operationId": "Deleteanannouncement",
+        "parameters": [
+          {
+            "name": "annonceID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Annonce - Restaurant"
+        ],
+        "summary": "Get single Annonce",
+        "operationId": "GetsingleAnnonce",
+        "parameters": [
+          {
+            "name": "annonceID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/restaurant/profile-restaurant": {
+      "get": {
+        "tags": [
+          "Restaurant Profile"
+        ],
+        "summary": "Get Profile",
+        "operationId": "GetProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "Restaurant Profile"
+        ],
+        "summary": "Update Profile",
+        "operationId": "UpdateProfile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "profile-restaurant",
+                  "name",
+                  "location"
+                ],
+                "type": "object",
+                "properties": {
+                  "profile-restaurant": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/restaurant/profile-admin": {
+      "get": {
+        "tags": [
+          "Admin Restaurant Profile"
+        ],
+        "summary": "Get Profile",
+        "operationId": "GetProfile1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "patch": {
+        "tags": [
+          "Admin Restaurant Profile"
+        ],
+        "summary": "Update Profile",
+        "operationId": "PatchUpdateProfile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "profile-admin",
+                  "name"
+                ],
+                "type": "object",
+                "properties": {
+                  "profile-admin": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/client/signup": {
+      "post": {
+        "tags": [
+          "Auth - Users"
+        ],
+        "summary": "Sign Up Users",
+        "operationId": "SignUpUsers",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignUpUsersRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "Stael Ervane",
+                      "email": "ervane.stael@gmail.com",
+                      "password": "password123",
+                      "phoneNumber": "9012345678",
+                      "profileImage": "https://example.com/profiles/james.jpg",
+                      "town": "Bafoussam"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "Stael Ervane",
+                "email": "ervane.stael@gmail.com",
+                "password": "password123",
+                "phoneNumber": "9012345678",
+                "profileImage": "https://example.com/profiles/james.jpg",
+                "town": "Bafoussam"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/auth/client/signin": {
+      "post": {
+        "tags": [
+          "Auth - Users"
+        ],
+        "summary": "Sign In Users",
+        "operationId": "SignInUsers",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignInUsersRequest"
+                  },
+                  {
+                    "example": {
+                      "email": "ervane.stael@gmail.com",
+                      "password": "password123"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "email": "ervane.stael@gmail.com",
+                "password": "password123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/client/profile": {
+      "get": {
+        "tags": [
+          "Profile - Users"
+        ],
+        "summary": "Get Profile info",
+        "operationId": "GetProfileinfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Profile - Users"
+        ],
+        "summary": "Update Profile info",
+        "operationId": "UpdateProfileinfo",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "profile-user",
+                  "name",
+                  "email",
+                  "phoneNumber",
+                  "town",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "profile-user": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "town": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/client/restaurant": {
+      "get": {
+        "tags": [
+          "Restaurant - Users"
+        ],
+        "summary": "Get all restaurant profile",
+        "operationId": "Getallrestaurantprofile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/client/restaurant/{restaurantID}": {
+      "get": {
+        "tags": [
+          "Restaurant - Users"
+        ],
+        "summary": "Get restaurant by Id",
+        "operationId": "GetrestaurantbyId",
+        "parameters": [
+          {
+            "name": "restaurantID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/client/restaurant/{restaurantID}/{menuID}": {
+      "get": {
+        "tags": [
+          "Restaurant - Users"
+        ],
+        "summary": "Get single restaurant menu",
+        "operationId": "Getsinglerestaurantmenu",
+        "parameters": [
+          {
+            "name": "restaurantID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "menuID",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/client/announcements": {
+      "get": {
+        "tags": [
+          "Restaurant - Users"
+        ],
+        "summary": "Get All announcements",
+        "operationId": "GetAllannouncements",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/client/commande": {
+      "post": {
+        "tags": [
+          "Commande - Users"
+        ],
+        "summary": "Make commande",
+        "operationId": "Makecommande",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MakecommandeRequest"
+                  },
+                  {
+                    "example": {
+                      "menuID": "66a96a1e9ffcd8d650d08d24",
+                      "quantity": 4,
+                      "address": "123 Main Street",
+                      "paymentPhoneNumber": "123-456-7890"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "menuID": "66a96a1e9ffcd8d650d08d24",
+                "quantity": 4,
+                "address": "123 Main Street",
+                "paymentPhoneNumber": "123-456-7890"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/client/commandes": {
+      "get": {
+        "tags": [
+          "Commande - Users"
+        ],
+        "summary": "Get all commandes",
+        "operationId": "Getallcommandes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/auth/agence/signup-agence": {
+      "post": {
+        "tags": [
+          "Auth - Panel agence ( agence ville )"
+        ],
+        "summary": "SignUp",
+        "operationId": "SignUp",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignUpRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "Jack Garcia1",
+                      "email": "jack.garcia1@example.com",
+                      "password": "Password1234",
+                      "agence": "Douala",
+                      "profileImage": "https://example.com/profile/jack.jpg"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "Jack Garcia1",
+                "email": "jack.garcia1@example.com",
+                "password": "Password1234",
+                "agence": "Douala",
+                "profileImage": "https://example.com/profile/jack.jpg"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/auth/agence/signin-agence": {
+      "post": {
+        "tags": [
+          "Auth - Panel agence ( agence ville )"
+        ],
+        "summary": "SignIn",
+        "operationId": "SignIn",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignInRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "Jack Garcia1",
+                      "email": "jack.garcia1@example.com",
+                      "password": "Password1234"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "Jack Garcia1",
+                "email": "jack.garcia1@example.com",
+                "password": "Password1234"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/agence/restaurants": {
+      "get": {
+        "tags": [
+          "Restaurant - Panel agence ( agence ville )"
+        ],
+        "summary": "Get Restaurants",
+        "operationId": "GetRestaurants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/agence/restaurant/{idRestaurant}": {
+      "get": {
+        "tags": [
+          "Restaurant - Panel agence ( agence ville )"
+        ],
+        "summary": "Get Single Restaurant by Id",
+        "operationId": "GetSingleRestaurantbyId",
+        "parameters": [
+          {
+            "name": "idRestaurant",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence/users": {
+      "get": {
+        "tags": [
+          "Users - Panel agence ( agence ville )"
+        ],
+        "summary": "Get All Users",
+        "operationId": "GetAllUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence/commandes": {
+      "get": {
+        "tags": [
+          "Commande - Panel agence ( agence ville )"
+        ],
+        "summary": "Get All Commandes",
+        "operationId": "GetAllCommandes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence/commande/{commandeId}": {
+      "get": {
+        "tags": [
+          "Commande - Panel agence ( agence ville )"
+        ],
+        "summary": "Get Commande by Id",
+        "operationId": "GetCommandebyId",
+        "parameters": [
+          {
+            "name": "commandeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/auth/agence-centrale/signin": {
+      "post": {
+        "tags": [
+          "Auth - Agence centrale"
+        ],
+        "summary": "SignIn",
+        "operationId": "PostSignIn",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SignInRequest"
+                  },
+                  {
+                    "example": {
+                      "name": "Jack Garcia1",
+                      "email": "jack.garcia1@example.com",
+                      "password": "Password1234"
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "name": "Jack Garcia1",
+                "email": "jack.garcia1@example.com",
+                "password": "Password1234"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": []
+      }
+    },
+    "/agence-centrale/agences": {
+      "get": {
+        "tags": [
+          "Agence - Agence centrale"
+        ],
+        "summary": "Get All Agences",
+        "operationId": "GetAllAgences",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/agence-centrale/agences/{agenceId}/restaurants": {
+      "get": {
+        "tags": [
+          "Agence - Agence centrale"
+        ],
+        "summary": "Get Single Restaurant by Id",
+        "operationId": "GetSingleRestaurantbyId1",
+        "parameters": [
+          {
+            "name": "agenceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence-centrale/agences/{agenceId}/restaurants/{restaurantId}": {
+      "get": {
+        "tags": [
+          "Agence - Agence centrale"
+        ],
+        "summary": "Get Single Restaurant by Id Copy",
+        "operationId": "GetSingleRestaurantbyIdCopy",
+        "parameters": [
+          {
+            "name": "agenceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "restaurantId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Agence - Agence centrale"
+        ],
+        "summary": "Create Agence",
+        "operationId": "CreateAgence",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence-centrale/agences/users": {
+      "get": {
+        "tags": [
+          "Users - Agence centrale"
+        ],
+        "summary": "Get All Users",
+        "operationId": "GetAllUsers1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/agence-centrale/agences/{agenceId}/users": {
+      "get": {
+        "tags": [
+          "Users - Agence centrale"
+        ],
+        "summary": "Get users of agence",
+        "operationId": "Getusersofagence",
+        "parameters": [
+          {
+            "name": "agenceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateadminRequest": {
+        "title": "CreateadminRequest",
+        "required": [
+          "name",
+          "email",
+          "password",
+          "profileImage",
+          "phoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "profileImage": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Kuitche Ervane",
+          "email": "ervane.kuitche@gmail.com",
+          "password": "password123",
+          "profileImage": "https://example.com/profiles/kuitche.jpg",
+          "phoneNumber": "9012345678"
+        }
+      },
+      "SignintorestaurantRequest": {
+        "title": "SignintorestaurantRequest",
+        "required": [
+          "email",
+          "nameRestaurant",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "nameRestaurant": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "ervane.kuitche@gmail.com",
+          "nameRestaurant": "La Cantina",
+          "password": "password123"
+        }
+      },
+      "CreatenewrestaurantRequest": {
+        "title": "CreatenewrestaurantRequest",
+        "required": [
+          "name",
+          "ville",
+          "location",
+          "ownedBy",
+          "phoneNumber",
+          "openingHour",
+          "closingHour",
+          "openingDays",
+          "profile"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "ville": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "ownedBy": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "openingHour": {
+            "type": "string"
+          },
+          "closingHour": {
+            "type": "string"
+          },
+          "openingDays": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          "profile": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "La Cantina",
+          "ville": "Barcelona",
+          "location": "Carrer de la Marina, 19",
+          "ownedBy": "60c72b1f9b1d8c1dfc8d6bf7",
+          "phoneNumber": "932123456",
+          "openingHour": "12:00",
+          "closingHour": "23:00",
+          "openingDays": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "profile": "https://example.com/profile/la_cantina.jpg"
+        }
+      },
+      "CreateanannouncementRequest": {
+        "title": "CreateanannouncementRequest",
+        "required": [
+          "title",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "title": "Holiday Feast",
+          "description": "Celebrate the holidays with a special feast at our restaurant."
+        }
+      },
+      "UpdateanannouncementRequest": {
+        "title": "UpdateanannouncementRequest",
+        "required": [
+          "title",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "title": "Holiday Feast",
+          "description": "Celebrate the holidays with a special feast at our restaurant."
+        }
+      },
+      "SignUpUsersRequest": {
+        "title": "SignUpUsersRequest",
+        "required": [
+          "name",
+          "email",
+          "password",
+          "phoneNumber",
+          "profileImage",
+          "town"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "profileImage": {
+            "type": "string"
+          },
+          "town": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Stael Ervane",
+          "email": "ervane.stael@gmail.com",
+          "password": "password123",
+          "phoneNumber": "9012345678",
+          "profileImage": "https://example.com/profiles/james.jpg",
+          "town": "Bafoussam"
+        }
+      },
+      "SignInUsersRequest": {
+        "title": "SignInUsersRequest",
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "ervane.stael@gmail.com",
+          "password": "password123"
+        }
+      },
+      "MakecommandeRequest": {
+        "title": "MakecommandeRequest",
+        "required": [
+          "menuID",
+          "quantity",
+          "address",
+          "paymentPhoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "menuID": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "paymentPhoneNumber": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "menuID": "66a96a1e9ffcd8d650d08d24",
+          "quantity": 4,
+          "address": "123 Main Street",
+          "paymentPhoneNumber": "123-456-7890"
+        }
+      },
+      "SignUpRequest": {
+        "title": "SignUpRequest",
+        "required": [
+          "name",
+          "email",
+          "password",
+          "agence",
+          "profileImage"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "agence": {
+            "type": "string"
+          },
+          "profileImage": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Jack Garcia1",
+          "email": "jack.garcia1@example.com",
+          "password": "Password1234",
+          "agence": "Douala",
+          "profileImage": "https://example.com/profile/jack.jpg"
+        }
+      },
+      "SignInRequest": {
+        "title": "SignInRequest",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "name": "Jack Garcia1",
+          "email": "jack.garcia1@example.com",
+          "password": "Password1234"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "Auth - Restaurant",
+      "description": "Authentication for the restaurant."
+    },
+    {
+      "name": "Menu - Restaurant",
+      "description": "Routes for creating, deleting, getting and updating menu that users buy"
+    },
+    {
+      "name": "Annonce - Restaurant",
+      "description": "Routes for creating, deleting, getting and updating annonce that users will recieve by the restaurant owners"
+    },
+    {
+      "name": "Restaurant Profile",
+      "description": "Profile of the restaurant"
+    },
+    {
+      "name": "Admin Restaurant Profile",
+      "description": "Profile of the admin or manager of the restaurant account"
+    },
+    {
+      "name": "Auth - Users",
+      "description": "Authentication routes for the users."
+    },
+    {
+      "name": "Profile - Users"
+    },
+    {
+      "name": "Restaurant - Users"
+    },
+    {
+      "name": "Commande - Users",
+      "description": "For making and getting all thier previous commands"
+    },
+    {
+      "name": "Auth - Panel agence ( agence ville )",
+      "description": "For authententication for agence in charge of a town or sector managing commands from the restaurant of that sector or town"
+    },
+    {
+      "name": "Restaurant - Panel agence ( agence ville )"
+    },
+    {
+      "name": "Users - Panel agence ( agence ville )"
+    },
+    {
+      "name": "Commande - Panel agence ( agence ville )"
+    },
+    {
+      "name": "Auth - Agence centrale"
+    },
+    {
+      "name": "Agence - Agence centrale",
+      "description": "Routes where the main \"agence\" will see all the other \"secondary\" that exist"
+    },
+    {
+      "name": "Users - Agence centrale"
+    }
+  ]
+}

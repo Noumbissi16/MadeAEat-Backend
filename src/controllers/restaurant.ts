@@ -231,9 +231,14 @@ export const deleteMenuItem = async (req: Request, res: Response) => {
 // Annonce controllers
 export const createAnnonce = async (req: Request, res: Response) => {
   const { userId } = (req as any).user;
+
   const restaurantOfAdmin = await Restaurant.findOne({
     ownedBy: userId,
   });
+
+  if (!restaurantOfAdmin) {
+    throw new BadRequest("Please provide the creator of the annonce");
+  }
 
   const annonce = await Annonce.create({
     ...req.body,
@@ -257,7 +262,7 @@ export const getAnnonceByID = async (req: Request, res: Response) => {
   });
 
   if (!annonce) {
-    throw new NotFoundError(`No job with id ${annonceID}`);
+    throw new NotFoundError(`No annonce with id ${annonceID} found`);
   }
 
   return res.status(StatusCodes.OK).json({
@@ -280,7 +285,7 @@ export const updateAnnoceByID = async (req: Request, res: Response) => {
   );
 
   if (!annonce) {
-    throw new NotFoundError(`No job with id ${annonceID}`);
+    throw new NotFoundError(`No annonce with id ${annonceID} found`);
   }
 
   return res.status(StatusCodes.OK).json({

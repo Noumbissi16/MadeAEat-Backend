@@ -6,7 +6,7 @@ export interface IReq extends Request {
   };
 }
 
-interface IGenericUser {
+export interface IGenericUser {
   name: string;
   email: string;
   password: string;

@@ -33,7 +33,7 @@ clientRouter.post("/commande", makeCommand);
 clientRouter.get("/profile", getUserProfile);
 clientRouter.patch(
   "/profile",
-  upload.single("profileImage"),
+  upload.single("profile-user"),
   updateUserProfile
 );
 

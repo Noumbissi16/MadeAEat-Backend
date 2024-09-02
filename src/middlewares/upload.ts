@@ -27,6 +27,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: Function) => {
     // If the file is not an image, reject it
     console.log("Unsupported file format, please upload an image file");
     cb(null, false);
+    // TODO: Handle response to send to user in case of wrong file format
   }
 };
 

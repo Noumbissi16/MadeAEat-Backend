@@ -19,8 +19,10 @@ import rateLimit from "express-rate-limit";
 // Swagger
 import swaggerUI from "swagger-ui-express";
 import YAML from "yamljs";
+import agenceCentralRouter from "./src/routes/agenceCentral";
 // const swaggerDocument = YAML.load("./swagger.yaml");
 const swaggerDocument = require("./swagger.json");
+const docs = require("./docs.api.swagger.json");
 
 // Set the port number.
 const port = process.env.PORT || 8000;
@@ -48,13 +50,15 @@ app.use(
 );
 // Define the root route.
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to MadeAEat API");
+  res.send(
+    "Welcome to MadeAEat API <h1><a href='/api-docs'>Go to docs</a></h1>"
+  );
 });
 // Serve Documentation
 app.use(
   "/api-docs",
   swaggerUI.serve,
-  swaggerUI.setup(swaggerDocument, {
+  swaggerUI.setup(docs, {
     customCss:
       ".swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }",
 
@@ -77,6 +81,10 @@ app.use("/api/v1/client", authMiddleware, clientRouter);
 // Define the routes for the agence module.
 app.use("/api/v1/auth/agence", agenceRouter);
 app.use("/api/v1/agence", authMiddleware, agenceRouter);
+
+// Routes for agence-centrale
+app.use("/api/v1/auth/agence-centrale", agenceCentralRouter);
+app.use("/api/v1/agence-centrale", authMiddleware, agenceCentralRouter);
 
 // Define the not found middleware.
 app.use(notFoundMiddleware);

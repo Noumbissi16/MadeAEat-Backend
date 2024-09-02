@@ -51,10 +51,10 @@ restaurantRouter.route("/annonces").get(getAllAnnonce);
 restaurantRouter
   .route("/profile-restaurant")
   .get(getRestaurantProfileInfos)
-  .patch(upload.single("profile"), updateRestaurantInfos);
+  .patch(upload.single("profile-restaurant"), updateRestaurantInfos);
 restaurantRouter
   .route("/profile-admin")
   .get(getRestaurantAdminInfos)
-  .patch(upload.single("profileImage"), updateRestaurantAdminInfos);
+  .patch(upload.single("profile-admin"), updateRestaurantAdminInfos);
 
 export default restaurantRouter;
