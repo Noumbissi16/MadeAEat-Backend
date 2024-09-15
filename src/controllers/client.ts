@@ -4,16 +4,8 @@ import { ClientModel } from "../db/models/client";
 import { StatusCodes } from "http-status-codes";
 import { NotFoundError, UnauthenticatedError } from "../errors";
 import bcrypt from "bcryptjs";
-
-import {
-  AdminRestaurant,
-  Annonce,
-  Menu,
-  MenuOwner,
-  Restaurant,
-} from "../db/models/restaurant";
+import { Annonce, Menu, MenuOwner, Restaurant } from "../db/models/restaurant";
 import CommandeModel from "../db/models/commande";
-import deleteFile from "../utils/deleteFile";
 
 import {
   deleteFileFromCloudinary,

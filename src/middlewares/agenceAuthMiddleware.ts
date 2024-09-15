@@ -1,8 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { UnauthenticatedError } from "../errors";
+import { BadRequest, UnauthenticatedError } from "../errors";
+import AgenceCentral from "../db/models/agenceCentral";
+import Agence from "../db/models/panelAgence";
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const agenceAuthMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new UnauthenticatedError("No token provided or wrong token format");
@@ -11,6 +17,17 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
+
+    if (!decoded.userId) {
+      throw new BadRequest("Invalid token");
+    }
+
+    const agence = await Agence.findById(decoded.userId);
+
+    if (!agence) {
+      throw new UnauthenticatedError("Not authorized to access this route");
+    }
+
     (req as any).user = {
       userId: decoded.userId,
     };
@@ -21,4 +38,4 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default authMiddleware;
+export default agenceAuthMiddleware;

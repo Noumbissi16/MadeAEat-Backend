@@ -78,15 +78,12 @@ export const getSingleRestaurantInformationById = async (
 export const getAllUsersOfAgence = async (req: Request, res: Response) => {
   const userId = (req as any).user.userId;
   const agenceLocation = await Agence.findById(userId).select("agence");
-  console.log("userId", userId);
-
-  console.log("agenceLocation", agenceLocation?.agence);
 
   const users = await ClientModel.find({
     town: agenceLocation?.agence,
   }).select("name email profileImage phoneNumber");
 
-  return res.status(StatusCodes.OK).json({ users });
+  res.status(StatusCodes.OK).json({ users });
 };
 
 export const getAllCommandes = async (req: Request, res: Response) => {
@@ -107,10 +104,6 @@ export const getAllCommandes = async (req: Request, res: Response) => {
   })
     .populate("clientID", "profileImage name")
     .populate("menuID");
-
-  // const commandes = {
-  //   ...
-  // }
 
   return res.status(StatusCodes.OK).json({
     commande: menusCommandedInLocation,

@@ -36,7 +36,7 @@ export const createRestaurant = async (req: Request, res: Response) => {
   if (!userId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Please provide your admin Id in request" });
+      .json({ msg: "Unauthenticated, authenticate yourself!" });
   }
   const restaurant = await Restaurant.create({
     ...req.body,
