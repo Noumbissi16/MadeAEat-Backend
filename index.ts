@@ -19,6 +19,7 @@ import restaurantAuthMiddleware from "./src/middlewares/restaurantAuthMiddleware
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import agenceAuthMiddleware from "./src/middlewares/agenceAuthMiddleware";
 // Swagger
 const docs = require("./docs.api.swagger.json");
 
@@ -78,7 +79,7 @@ app.use("/api/v1/client", userAuthMiddleware, clientRouter);
 
 // Define the routes for the agence module.
 app.use("/api/v1/auth/agence", agenceRouter);
-app.use("/api/v1/agence", agenceCentralAuthMiddleware, agenceRouter);
+app.use("/api/v1/agence", agenceAuthMiddleware, agenceRouter);
 
 // Routes for agence-centrale
 app.use("/api/v1/auth/agence-centrale", agenceCentralRouter);

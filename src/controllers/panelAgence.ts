@@ -5,6 +5,9 @@ import { BadRequest, NotFoundError, UnauthenticatedError } from "../errors";
 import { Menu, MenuOwner, Restaurant } from "../db/models/restaurant";
 import CommandeModel from "../db/models/commande";
 import { ClientModel } from "../db/models/client";
+import bcrypt from "bcryptjs"
+import { deleteFileFromCloudinary, uploadToCloudinary } from "../middlewares/upload";
+import { UploadedFiles } from "../types";
 
 export const signUpAgence = async (req: Request, res: Response) => {
   const agence = await Agence.create(req.body);
@@ -122,3 +125,74 @@ export const getSingleCommandeById = async (req: Request, res: Response) => {
     commande,
   });
 };
+
+
+export const updateProfile = async (req: Request, res: Response) => {
+
+  // Extract the userId from the request object
+  const userId = (req as any).user.userId;
+
+  // Extract the password and other update information from the request body
+  const { password, ...updateInfos } = req.body;
+
+  // Get the profile image from the request
+  const files = req.files as UploadedFiles;
+
+  // If a password is provided, hash it using bcrypt
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    updateInfos.password = hashedPassword;
+  }
+
+
+  const profileImage = files.profileImage as Express.Multer.File[];
+  const profileAgence = files.profileAgence as Express.Multer.File[];
+
+  // Get the user to update
+  const userToUpdate = await Agence.findById(userId);
+
+  // If a profile image is provided, upload it to Cloudinary and update the profileImage field
+  if (profileImage) {
+    // If the user has a profile image, delete it from Cloudinary
+    if (userToUpdate?.profileImage) {
+      await deleteFileFromCloudinary(userToUpdate.profileImage);
+    }
+
+    // Upload the new profile image to Cloudinary
+    const cloudinaryResponse = await uploadToCloudinary(profileImage[0]);
+
+    // Update the profileImage field with the secure URL from Cloudinary
+    updateInfos.profileImage = cloudinaryResponse.secure_url;
+  }
+  if (profileAgence) {
+    // If the user has a profile image, delete it from Cloudinary
+    if (userToUpdate?.profileAgence) {
+      await deleteFileFromCloudinary(userToUpdate.profileAgence);
+    }
+    // Upload the new profile image to Cloudinary
+    const cloudinaryResponse = await uploadToCloudinary(profileAgence[0]);
+
+    // Update the profileImage field with the secure URL from Cloudinary
+    updateInfos.profileAgence = cloudinaryResponse.secure_url;
+  }
+
+  // Update the user's profile
+  const updatedUser = await Agence.findByIdAndUpdate(userId, updateInfos, {
+    new: true,
+  });
+
+  // If no user is found, throw a NotFoundError
+  if (!updatedUser) {
+    throw new NotFoundError("User not found");
+  }
+
+  // Send the updated user back to the client
+  return res.status(StatusCodes.OK).json({
+    user: updatedUser,
+  });
+
+
+
+
+}

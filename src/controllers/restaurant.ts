@@ -366,8 +366,12 @@ export const updateRestaurantInfos = async (req: Request, res: Response) => {
   }
   if (profile) {
     // Delete the image from cloudinary in case the user already had an image before uploading the new one
-    restaurantToUpdate.profile &&
-      deleteFileFromCloudinary(restaurantToUpdate.profile);
+    // restaurantToUpdate.profile &&
+    //   deleteFileFromCloudinary(restaurantToUpdate.profile);
+    // If the user has a profile image, delete it from Cloudinary
+    if (restaurantToUpdate?.profile) {
+      await deleteFileFromCloudinary(restaurantToUpdate?.profile);
+    }
     // upload new profile image to cloudinary
     const cloudinaryUpload = await uploadToCloudinary(profile);
     informationToUpdate.profile = cloudinaryUpload.secure_url;
@@ -427,8 +431,12 @@ export const updateRestaurantAdminInfos = async (
 
   if (adminProfile) {
     // Delete the already existing user image on cloudinary if exist
-    adminRestaurantToUpdate.profileImage &&
-      deleteFileFromCloudinary(adminRestaurantToUpdate.profileImage);
+    // adminRestaurantToUpdate.profileImage &&
+    //   deleteFileFromCloudinary(adminRestaurantToUpdate.profileImage);
+    // If the user has a profile image, delete it from Cloudinary
+    if (adminRestaurantToUpdate?.profileImage) {
+      await deleteFileFromCloudinary(adminRestaurantToUpdate?.profileImage);
+    }
     // upload new image to cloudinary and get url to save in database
     const cloudinaryUpload = await uploadToCloudinary(adminProfile);
     // Attach the image url to the object that will be saved in database

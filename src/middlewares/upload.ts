@@ -32,7 +32,6 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: Function) => {
       ),
       false
     );
-    // TODO: Handle response to send to user in case of wrong file format
   }
 };
 
@@ -41,7 +40,7 @@ const uploadToCloudinary = async (file: Express.Multer.File) => {
   try {
     // Upload the file to Cloudinary
     const result = await cloudinary.uploader.upload(file.path, {
-      asset_folder: "/madeAEat",
+      folder: "/madeAEat",
       use_filename: true,
     });
     return result;

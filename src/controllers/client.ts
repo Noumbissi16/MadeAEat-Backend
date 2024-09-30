@@ -193,8 +193,9 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     const userToUpdate = await ClientModel.findById(userId);
 
     // If the user has a profile image, delete it from Cloudinary
-    userToUpdate?.profileImage &&
-      deleteFileFromCloudinary(userToUpdate?.profileImage);
+    if (userToUpdate?.profileImage) {
+      await deleteFileFromCloudinary(userToUpdate?.profileImage);
+    }
 
     // Upload the new profile image to Cloudinary
     const cloudinaryResponse = await uploadToCloudinary(profileImage);

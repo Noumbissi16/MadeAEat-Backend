@@ -25,4 +25,11 @@ export interface IClient extends IGenericUser {
 
 export interface IAgence extends IGenericUser {
   agence: string;
+  profileAgence: string
 }
+
+export interface UploadedFiles {
+  profileImage?: Express.Multer.File[];
+  profileAgence?: Express.Multer.File[];
+}
+

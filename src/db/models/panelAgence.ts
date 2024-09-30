@@ -33,6 +33,10 @@ const panelAgenceSchema = new mongoose.Schema<IAgence>({
   profileImage: {
     type: String,
   },
+  profileAgence: {
+    type: String,
+  }
+
 });
 
 const salt = 10;
