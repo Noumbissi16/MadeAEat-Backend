@@ -19,13 +19,14 @@ import {
   updateRestaurantInfos,
 } from "../controllers/restaurant";
 import { upload } from "../middlewares/upload";
+import createRestaurantMiddleware from "../middlewares/createRestaurantMiddleware";
 
 const restaurantRouter = express.Router();
 
 // authentication routes
 restaurantRouter.route("/signup").post(signup);
 restaurantRouter.route("/signin").post(signin);
-restaurantRouter.post("/create-restaurant", createRestaurant);
+restaurantRouter.post("/create-restaurant", createRestaurantMiddleware, createRestaurant);
 
 // menu routes
 restaurantRouter

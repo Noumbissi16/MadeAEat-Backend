@@ -13,6 +13,7 @@ const restaurantAuthMiddleware = async (
     throw new UnauthenticatedError("No token provided or wrong token format");
   }
 
+
   const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
@@ -23,9 +24,12 @@ const restaurantAuthMiddleware = async (
 
     const restaurant = await Restaurant.findById(decoded.userId);
 
+
     if (!restaurant) {
       throw new UnauthenticatedError("Not authorized to access this route");
     }
+
+
 
     (req as any).user = {
       userId: decoded.userId,

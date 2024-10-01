@@ -110,7 +110,7 @@
         "deprecated": false
       }
     },
-    "/restaurant/create-restaurant": {
+    "/auth/restaurant/create-restaurant": {
       "post": {
         "tags": [
           "Auth - Restaurant"
@@ -129,11 +129,10 @@
                   },
                   {
                     "example": {
-                      "name": "La Cantina",
-                      "ville": "Barcelona",
-                      "location": "Carrer de la Marina, 19",
-                      "ownedBy": "60c72b1f9b1d8c1dfc8d6bf7",
-                      "phoneNumber": "932123456",
+                      "name": "CamFood",
+                      "ville": "Bafoussam",
+                      "location": "Camp Sable - 3eme rue",
+                      "phoneNumber": "690277499",
                       "openingHour": "12:00",
                       "closingHour": "23:00",
                       "openingDays": [
@@ -144,17 +143,16 @@
                         "Friday",
                         "Saturday"
                       ],
-                      "profile": "https://example.com/profile/la_cantina.jpg"
+                      "profile": "https://res.cloudinary.com/dtymflrda/image/upload/v1727697250/madeAEat/1727697243806-941595355-Sta%C3%ABl_Image_ehp7ny.jpg"
                     }
                   }
                 ]
               },
               "example": {
-                "name": "La Cantina",
-                "ville": "Barcelona",
-                "location": "Carrer de la Marina, 19",
-                "ownedBy": "60c72b1f9b1d8c1dfc8d6bf7",
-                "phoneNumber": "932123456",
+                "name": "CamFood",
+                "ville": "Bafoussam",
+                "location": "Camp Sable - 3eme rue",
+                "phoneNumber": "690277499",
                 "openingHour": "12:00",
                 "closingHour": "23:00",
                 "openingDays": [
@@ -165,7 +163,7 @@
                   "Friday",
                   "Saturday"
                 ],
-                "profile": "https://example.com/profile/la_cantina.jpg"
+                "profile": "https://res.cloudinary.com/dtymflrda/image/upload/v1727697250/madeAEat/1727697243806-941595355-Sta%C3%ABl_Image_ehp7ny.jpg"
               }
             }
           },
@@ -1138,6 +1136,64 @@
         "security": []
       }
     },
+    "/agence/profile": {
+      "patch": {
+        "tags": [
+          "Profile - Panel agence ( agence ville )"
+        ],
+        "summary": "Update Profile Agence",
+        "operationId": "UpdateProfile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "profileImage",
+                  "name",
+                  "location",
+                  "profileAgence",
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "profileImage": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "profileAgence": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/agence/restaurants": {
       "get": {
         "tags": [
@@ -1815,6 +1871,10 @@
     },
     {
       "name": "Restaurant - Panel agence ( agence ville )"
+    },
+    {
+      "name": "Profile - Panel agence ( agence ville )",
+      "description": "Obtain and modify profile for agence"
     },
     {
       "name": "Users - Panel agence ( agence ville )"

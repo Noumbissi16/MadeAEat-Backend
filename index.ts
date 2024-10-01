@@ -75,7 +75,7 @@ app.use("/api/v1/restaurant", restaurantAuthMiddleware, restaurantRouter);
 
 // Define the routes for the client module.
 app.use("/api/v1/auth/client", clientRouter);
-app.use("/api/v1/client", userAuthMiddleware, clientRouter);
+app.use("/api/v1/client", restaurantAuthMiddleware, clientRouter);
 
 // Define the routes for the agence module.
 app.use("/api/v1/auth/agence", agenceRouter);

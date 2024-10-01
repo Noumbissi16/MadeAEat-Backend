@@ -31,8 +31,7 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const createRestaurant = async (req: Request, res: Response) => {
-  const { userId } = (req as IReq).user;
-  // const { userId } = req.body;
+  const { userId } = (req as any).user;
   if (!userId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
@@ -62,11 +61,11 @@ export const signin = async (req: Request, res: Response) => {
 
   const adminRestaurant = await AdminRestaurant.findOne({ email });
   if (!adminRestaurant) {
-    throw new UnauthenticatedError("Invalid email");
+    throw new UnauthenticatedError("Invalid email. User not found");
   }
   const isPasswordCorrect = await adminRestaurant?.comparePassword(password);
   if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Invalid password");
+    throw new UnauthenticatedError("Invalid password. Please try again");
   }
   // check if restaurant exists
   const restaurant = await Restaurant.find({
