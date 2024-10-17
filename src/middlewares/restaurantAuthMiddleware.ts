@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { BadRequest, UnauthenticatedError } from "../errors";
-import { Restaurant } from "../db/models/restaurant";
+import { AdminRestaurant } from "../db/models/restaurant";
 
 const restaurantAuthMiddleware = async (
   req: Request,
@@ -22,8 +22,7 @@ const restaurantAuthMiddleware = async (
       throw new BadRequest("Invalid token");
     }
 
-    const restaurant = await Restaurant.findById(decoded.userId);
-
+    const restaurant = await AdminRestaurant.findById(decoded.userId);
 
     if (!restaurant) {
       throw new UnauthenticatedError("Not authorized to access this route");
